@@ -12,22 +12,22 @@
     <h1>Carregar Música</h1>
     <form name="subirMusica" method="POST" enctype="multipart/form-data">
       <label>Genêro:
-        <select>
-          <option value="funk">Funk</option>
-          <option value="ser">Sertanjo</option>
-          <option value="rap">Rap</option>
+        <select name="musicGenre">
+          <option value="Funk">Funk</option>
+          <option value="Sertanjo">Sertanjo</option>
+          <option value="Rap">Rap</option>
         </select>
       </label>
       <br>
-      <label>Nome da Música: <input type="text" name="song_name"  placeholder="Insira o Estilo" value="defaultName" required pattern="^[a-zA-Z]*"></label>
+      <label>Nome da Música: <input type="text" name="songName" placeholder="Insira o Estilo" value="defaultName" required pattern="[\w\s]+"></label>
       <br>
-      <label>Nome do Cantor: <input type="text" name="song_author" placeholder="Insira o Nome do Cantor" value="defaultAuthor" required></label>
+      <label>Nome do Cantor: <input type="text" name="songAuthor" placeholder="Insira o Nome do Cantor" value="defaultAuthor" required pattern="[\w\s]+"></label>
       <br>
-      <input type="file" name="song_file" />
+      <input type="file" name="songFile" />
       <br>
       <input type="submit" value="Salvar Música"/>
     </form>
-    <script src="controllers/newSongPageController.js"></script>
+    <script src="newSongPageController.js"></script>
   </body>
 </html>
 

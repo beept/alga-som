@@ -5,8 +5,8 @@
  */
 package util;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,18 +17,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Aluno
  */
-@WebServlet(name = "CarregaMusicaServlet", urlPatterns = {"/CarregaMusica"})
+@WebServlet(name = "ListaMusicaServlet", urlPatterns = {"/ListaMusica"})
 public class ListaMusicaServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      String path = getServletContext().getRealPath("/songs");
+      
+      System.out.println(path);
+      File objFile = new File(path);
+      
+      if (objFile.isDirectory())
+      {
+        System.out.printf("\nConteúdo do diretório:\n");
+         String diretorio[] = objFile.list();
+         for (String item: diretorio) {
+           System.out.printf("%s\n", item);
+         }
+      }
     }
-
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
-
 }
