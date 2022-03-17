@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : lista
     Created on : 10/03/2022, 21:33:42
@@ -5,6 +6,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:url value="/subirMusica" var="linkCarregaMusicaServlet"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +15,8 @@
     </head>
     <body>
         <h1>Buscar Música</h1>
-        
+        <form action="ListaMusica">
+            <input type="submit" value="Listar Músicas" name="listSong" />
+        </form>
     </body>
 </html>

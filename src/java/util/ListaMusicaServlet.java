@@ -21,12 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ListaMusicaServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      System.out.println("---------------LISTA---------------");
       String path = getServletContext().getRealPath("/songs");
-      
       System.out.println(path);
       File objFile = new File(path);
-      
       if (objFile.isDirectory())
       {
         System.out.printf("\nConteúdo do diretório:\n");

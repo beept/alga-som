@@ -29,7 +29,7 @@ frm.addEventListener('submit', () => {
 
 function sendData(formData)
 {
-  const URL_TO_FETCH = 'ListaMusica';
+  const URL_TO_FETCH = 'CarregaMusica';
 
   fetch(URL_TO_FETCH, {
     method: 'post',
