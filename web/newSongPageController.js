@@ -8,7 +8,7 @@ frm.addEventListener('submit', () => {
   let songName = "";
   let formData = new FormData(frm);
 
-  songName = ''.concat(formData.get('songName'), '_', formData.get('musicGenre'), '_', formData.get('songAuthor'));
+  songName = ''.concat(formData.get('songName'), '_', formData.get('musicGenre'), '_', formData.get('songAuthor'), '.mp3');
   songName = songName.trim();
   songName = songName.replaceAll(' ', '_');
   songName = songName.replace(/__+/g, '_');

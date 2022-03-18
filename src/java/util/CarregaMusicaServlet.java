@@ -41,7 +41,11 @@ public class CarregaMusicaServlet extends HttpServlet {
         String songName = request.getParameter("concatSongName");
         Part filePart = request.getPart("songFile");
         String path = getServletContext().getRealPath("/songs");
+        File newFolder = new File(path);
+        newFolder.mkdir();
+        
         System.out.println(path);
+        
         InputStream fileContent = filePart.getInputStream();
         
         upload(path, songName, fileContent);
