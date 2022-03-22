@@ -40,7 +40,7 @@ public class SearchSongServlet extends HttpServlet {
 
   private String getJsonKeyOccurrences(String key, HttpServletResponse response) {
     
-    List<String> list = new ArrayList();
+    ArrayList<String> list = new ArrayList<>();
     File objFile = new File(getServletContext().getRealPath("/songs"));
     String directory[] = objFile.list();
     

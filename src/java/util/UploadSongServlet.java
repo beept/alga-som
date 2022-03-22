@@ -39,66 +39,73 @@ public class UploadSongServlet extends HttpServlet {
 
     // get song name
     String songName = request.getParameter("concatSongName");
-
+    InputStream fileContent = null;
+    FileOutputStream out = null;
+    File newFolder = null;
     Part filePart = null;
+    File newFile = null;
+    byte maxFileSize[];
+    String path = "";
+    int bite = 0;
+    
+    // get song part
     try {
-      // get song part
       filePart = request.getPart("songFile");
-      System.out.println("Received data successful");
+      System.out.println("[1]Received data successful");
     } catch (IOException | ServletException ex) {
-      System.out.println(ex.getMessage());
+      System.out.println("[1.1]Erro: " + ex.getMessage());
     }
 
     // get folder path string and concat songs destination folders
-    String path = getServletContext().getRealPath("/songs");
-    System.out.println(path);
+    path = getServletContext().getRealPath("/songs");
+    System.out.println("[2]" + path);
 
     // create new instance of folder object and create folder in build directory
-    File newFolder = new File(path);
+    newFolder = new File(path);
     if (newFolder.mkdir()) {
-      System.out.println("Create");
+      System.out.println("[3]: Create");
     } else {
-      System.out.println("Create fail!");
+      System.out.println("[3.1]: Create fail! check if the folder is already created");
     }
 
     // declare InputStream object and assignment with of content file part obj
-    InputStream fileContent = null;
     try {
       fileContent = filePart.getInputStream();
     } catch (IOException ex) {
-      System.out.println(ex.getMessage());
+      System.out.println("[4.1]: " + ex.getMessage());
     }
-
+    
     // calling upload method passing arguments
+    String filePath = path + "/" + songName;
+    System.out.println("[5]: " + filePath);
+
+    newFile = new File(filePath);
     try {
-      upload(path, songName, fileContent);
+        out = new FileOutputStream(newFile);
+    } catch (FileNotFoundException ex) {
+        System.out.println("[6.1] Erro: " + ex.getMessage());
+    }
+    
+    maxFileSize = new byte[1024];
+    try {
+        while ((bite = fileContent.read(maxFileSize)) >= 0) 
+        {
+            out.write(maxFileSize, 0, bite);
+        } 
     } catch (IOException ex) {
-      System.out.println(ex.getMessage());
-    }
-  }
-
-  private void upload(String folder, String fileName, InputStream fileLoaded) throws FileNotFoundException, IOException {
-
-    String filePath = folder + "/" + fileName;
-    System.out.println(filePath);
-
-    File newFile = new File(filePath);
-
-    FileOutputStream out = new FileOutputStream(newFile);
-
-    copyFile(fileLoaded, out);
-  }
-
-  private void copyFile(InputStream orign, OutputStream destiny) throws IOException {
-
-    int _byte = 0;
-    byte maxFileSize[] = new byte[1024];
-
-    while ((_byte = orign.read(maxFileSize)) >= 0) {
-      destiny.write(maxFileSize, 0, _byte);
+        System.out.println("[7.1] Erro: " + ex.getMessage());
     }
 
-    orign.close();
-    destiny.close();
+    try {
+        fileContent.close();
+    } catch (IOException ex) {
+        System.out.println("[8.1] Erro: " + ex.getMessage());
+    }
+      
+    try {
+        out.close();
+    } catch (IOException ex) {
+        System.out.println("[9.1] Erro: " + ex.getMessage());
+    }
   }
 }
