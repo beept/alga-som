@@ -10,9 +10,19 @@
   <body>
 
     <form id="searchSongForm" method="GET" enctype="text/plain" class="">
-      <label for="seachKey"></label>
+        
+      <label for="seachKey"><!-- PlaceholderUp --></label>
       <input id="seachKey" type="text" name="songName" placeholder="Busque: Música, Estilo, Autor" required pattern="[\w\s]+">
+      
+      <button type="reset" value="Reset">Limpar Resultado</button>
+      <button type="submit">Procurar</button>
+      <button type="button">Tocar Todas</button>
+      
+      
+<!--      <input type="image" alt="Login" src="cancel.png.png">
       <input type="submit" value="Ok"/>
+      <input type="button" value="Tocar Todas">-->
+      
     </form>
     
     <!-- FULL PLAYER CONTAINER -->
@@ -26,24 +36,24 @@
           
           <!-- PLAYLIST BUTTON -->
           <button class="player__button player__button--absolute--nw playlist">
-            <img src="http://physical-authority.surge.sh/imgs/icon/playlist.svg" alt="playlist-icon"/>
+            <img src="resources/playlist.svg" alt="playlist-icon"/>
           </button>
           
           <!-- PLAY AND PAUSE BUTTON -->
           <button class="player__button player__button--absolute--center play">
-            <img src="http://physical-authority.surge.sh/imgs/icon/play.svg" alt="play-icon"/>
-            <img src="http://physical-authority.surge.sh/imgs/icon/pause.svg" alt="pause-icon"/>
+            <img src="resources/playPauseBtn/play.svg" alt="play-icon"/>
+            <img src="resources/playPauseBtn/pause.svg" alt="pause-icon"/>
           </button>
           
           <!-- SONGS THUMBNAILS -->
-          <div class="slider__content">
-            <img class="img slider__img" src="http://physical-authority.surge.sh/imgs/1.jpg" alt="cover"/>
-            <img class="img slider__img" src="http://physical-authority.surge.sh/imgs/2.jpg" alt="cover"/>
-            <img class="img slider__img" src="http://physical-authority.surge.sh/imgs/3.jpg" alt="cover"/>
-            <img class="img slider__img" src="http://physical-authority.surge.sh/imgs/4.jpg" alt="cover"/>
-            <img class="img slider__img" src="http://physical-authority.surge.sh/imgs/5.jpg" alt="cover"/>
-            <img class="img slider__img" src="http://physical-authority.surge.sh/imgs/6.jpg" alt="cover"/>
-            <img class="img slider__img" src="http://physical-authority.surge.sh/imgs/7.jpg" alt="cover"/>
+          <div id="current_thumbnails_list" class="slider__content">
+            <img class="img slider__img" src="resources/1.jpg" alt="cover"/>
+            <img class="img slider__img" src="resources/2.jpg" alt="cover"/>
+            <img class="img slider__img" src="resources/3.jpg" alt="cover"/>
+            <img class="img slider__img" src="resources/4.jpg" alt="cover"/>
+            <img class="img slider__img" src="resources/5.jpg" alt="cover"/>
+            <img class="img slider__img" src="resources/6.jpg" alt="cover"/>
+            <img class="img slider__img" src="resources/7.jpg" alt="cover"/>
           </div>
         </div>
 
@@ -52,7 +62,7 @@
           
           <!-- BACK BUTTON -->
           <button class="player__button back">
-            <img class="img" src="http://physical-authority.surge.sh/imgs/icon/back.svg" alt="back-icon"/>
+            <img class="img" src="resources/back.svg" alt="back-icon"/>
           </button>
           
           
@@ -67,7 +77,7 @@
           
           <!-- NEXT BUTTON -->
           <button class="player__button next">
-            <img class="img" src="http://physical-authority.surge.sh/imgs/icon/next.svg" alt="next-icon"/>
+            <img class="img" src="resources/next.svg" alt="next-icon"/>
           </button>
           
           <!-- PROGRES BAR -->
@@ -80,11 +90,11 @@
       </div>
       
       <!-- SONGS UL CONTAINER -->
-      <ul class="player__playlist list">
+      <ul class="player__playlist list" id="current_list">
         
         <!-- LI ITEM SONG -->
         <li class="player__song">
-          <img class="player__img img" src="http://physical-authority.surge.sh/imgs/1.jpg" alt="cover"/>
+          <img class="player__img img" src="resources/1.jpg" alt="cover"/>
           <p class="player__context">
             <b class="player__song-name">no time</b>
             <span class="flex">
@@ -96,7 +106,7 @@
         </li>
         
         <li class="player__song">
-          <img class="player__img img" src="http://physical-authority.surge.sh/imgs/2.jpg" alt="cover"/>
+          <img class="player__img img" src="resources/2.jpg" alt="cover"/>
           <p class="player__context">
             <b class="player__song-name">blinding lights</b>
             <span class="flex">
@@ -108,7 +118,7 @@
         </li>
         
         <li class="player__song">
-          <img class="player__img img" src="http://physical-authority.surge.sh/imgs/3.jpg" alt="cover"/>
+          <img class="player__img img" src="resources/3.jpg" alt="cover"/>
           <p class="player__context">
             <b class="player__song-name">джованна</b>
             <span class="flex">
@@ -120,7 +130,7 @@
         </li>
         
         <li class="player__song">
-          <img class="player__img img" src="http://physical-authority.surge.sh/imgs/4.jpg" alt="cover"/>
+          <img class="player__img img" src="resources/4.jpg" alt="cover"/>
           <p class="player__context">
             <b class="player__song-name">a man</b>
             <span class="flex">
@@ -132,7 +142,7 @@
         </li>
         
         <li class="player__song">
-          <img class="player__img img" src="http://physical-authority.surge.sh/imgs/5.jpg" alt="cover"/>
+          <img class="player__img img" src="resources/5.jpg" alt="cover"/>
           <p class="player__context">
             <b class="player__song-name">unforgetting</b>
             <span class="flex">
@@ -144,7 +154,7 @@
         </li>
         
         <li class="player__song">
-          <img class="player__img img" src="http://physical-authority.surge.sh/imgs/6.jpg" alt="cover"/>
+          <img class="player__img img" src="resources/6.jpg" alt="cover"/>
           <p class="player__context">
             <b class="player__song-name">waharan</b>
             <span class="flex">
@@ -152,14 +162,11 @@
               <span class="player__song-time"></span>
             </span>
           </p>
-          <audio
-            class="audio"
-            src="http://physical-authority.surge.sh/music/6.mp3"
-            ></audio>
+          <audio class="audio" src="http://physical-authority.surge.sh/music/6.mp3"></audio>
         </li>
         
         <li class="player__song">
-          <img class="player__img img" src="http://physical-authority.surge.sh/imgs/7.jpg" alt="cover"/>
+          <img class="player__img img" src="resources/7.jpg" alt="cover"/>
           <p class="player__context">
             <b class="player__song-name">starlight feat mr gabriel<span class="uppercase">4am</span> remix</b>
             <span class="flex">
@@ -172,5 +179,5 @@
       </ul>
     </div>
   </body>
-  <script src="controllers/searchSongController.js"></script>
+  <script src="searchSongController.js"></script>
 </html>

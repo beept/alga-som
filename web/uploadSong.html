@@ -17,9 +17,9 @@
         </select>
       </label>
       <br>
-      <label>Nome da Música: <input type="text" name="songName" placeholder="Insira o Estilo" value="defaultName" required pattern="[\w\s]+"></label>
+      <label>Nome da Música: <input type="text" name="songName" placeholder="Insira o Estilo" value="defaultName" required pattern="[^;]*[\w\s]+"></label>
       <br>
-      <label>Nome do Cantor: <input type="text" name="songAuthor" placeholder="Insira o Nome do Cantor" value="defaultAuthor" required pattern="[\w\s]+"></label>
+      <label>Nome do Cantor: <input type="text" name="songAuthor" placeholder="Insira o Nome do Cantor" value="defaultAuthor" required pattern="[^;]*[\w\s]+"></label>
       <br>
       <input type="file" name="songFile" />
       <br>

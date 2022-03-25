@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,43 +25,41 @@ public class SearchSongServlet extends HttpServlet {
   private final Gson gson = new Gson();
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-    String key = getKeyWord(request);
-    String json = getJsonKeyOccurrences(key, response);
-    submitJsonResponse(json, response);
-  }
+    ArrayList<String> list;
+    String directory[];
+    PrintWriter out;
+    File objFile;
+    String json;
+    String key;
 
-  private String getKeyWord(HttpServletRequest request) {
-    return request.getParameter("songToSearch");
-  }
+    list = new ArrayList<>();
+    key = request.getParameter("songToSearch");
+    System.out.println("Key: " + key);
 
-  private String getJsonKeyOccurrences(String key, HttpServletResponse response) {
-    
-    ArrayList<String> list = new ArrayList<>();
-    File objFile = new File(getServletContext().getRealPath("/songs"));
-    String directory[] = objFile.list();
-    
-    for (String item : directory) {
-      if (item.toLowerCase().contains(key.toLowerCase())) {
-        list.add(item);
+    objFile = new File(getServletContext().getRealPath("/songs"));
+    directory = objFile.list();
+
+
+    if (directory != null) {
+      for (String item : directory) {
+        if (item.toLowerCase().contains(key.toLowerCase())) {
+          list.add(item);
+        }
       }
     }
-    return this.gson.toJson(list);
-  }
-  
-  private void submitJsonResponse(String jsonString, HttpServletResponse response)
-  {
-    
+
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
-    
-    try (PrintWriter out = response.getWriter()) {
-      out.print(jsonString);
+    json = this.gson.toJson(list);
+    try {
+      out = response.getWriter();
+      out.print(json);
       out.flush();
       out.close();
-    } catch (IOException e){
-      System.out.println(e.getMessage());
+    } catch (IOException ex) {
+      System.out.println("[1] ERRO: " + ex.getMessage());
     }
   }
 }
