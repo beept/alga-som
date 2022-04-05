@@ -101,7 +101,7 @@ function closePlayer() {
  * valor e maior que o propio left. a funcao tambem
  * incrementa o count e chama o metodo run.
  * [ ] Entender deslocamento da funcao translate3d().
- * [ ] O SONGS THUMBNAILS deve ser atualizado no corpo
+ * [x] O SONGS THUMBNAILS deve ser atualizado no corpo
  * HTML e por que cada imagem na lista desse container
  * de Thumbnail, deve corresponder a musica que esta
  * na lista.
@@ -158,7 +158,7 @@ function back(index) {
  * se o texto ultrapassou um valor predefinido, se sim,
  * um novo elemento span e criado, e adicionado a classe
  * css .text-wrap a ele,
- * [ ] Estudar elementos dessa classe
+ * [x] Estudar elementos dessa classe
  * e entao o ponteiro para o elemento que guarda a infor
  * macao de artista ou nome de musica na dom e esvaziado
  * innerText e textWrap e atribuido a ele.
@@ -199,7 +199,9 @@ function changeSliderContext() {
  * fixo, e escolher as cores baseado no percentual de count.
  */
 function changeBgBody() {
-  body.style.backgroundColor = bgBody[count];
+  let n = Math.floor(count/(playerPlayList.length+1)*100);
+  console.log(n);
+  body.style.backgroundColor = bgBody[n];
 }
 
 /*
@@ -441,7 +443,7 @@ const addAudioTagListeners = () => {
      * 5 - progress
      * 6 - canplay
      * 7 - canplaythrough
-     * [ ] - Estudar todos esses eventos.
+     * [x] - Estudar todos esses eventos.
      * 
      * Entao, esse evento adicionado a um Listener (Escutador),
      * executa uma funcao, sempre que o primeiro pedaco da midia
@@ -534,10 +536,7 @@ const resetBtn = document.querySelector('form button[type="reset"]');
 const playAll = sForm.querySelector('button[type="button"]');
 let currentList = player.querySelector('#current_list');
 let currentThumbnailsList = slider.querySelector('#current_thumbnails_list');
-
-let lastSearchKeySubmited = '';
 let obj;
-
 
 function removeTempList()
 {
@@ -578,7 +577,7 @@ function restoreList() {
 }
 
 /**
- * playCurrentList()
+ * playDisplayedList()
  * Funcao que ira atualizar os listeners para
  * a lista de musicas atual. ou seja, essa
  * funcao sera atribuida para o botao "Tocar todas
@@ -589,16 +588,18 @@ function playDisplayedList()
 {
   // play Current List sera estritamento para a lista de id .temp_list
   /**
-   * [ ] ira remover a lista atual. 
-   * [ ] adicionar e transformar a lista temporaria na lista atual.
-   * [ ] Modificar as variaveis dependentes e os listeners
-   * [ ] Esse metodo tambem vai remover os listeners PopUp, ja adicionado
+   * [x] ira remover a lista atual. 
+   * [x] adicionar e transformar a lista temporaria na lista atual.
+   * [x] Modificar as variaveis dependentes e os listeners
+   * [x] Esse metodo tambem vai remover os listeners PopUp, ja adicionado
    * nos items temporarios, que seram atribuidos
    * a cada li. No lugar do evento de tocar, sera o evento PopUp que abre
    * uma janela para poder adicionar a fila de execucao.
    */
   const tempList = player.querySelector('#temp_list');
+  console.log('aqui1');
   if (tempList && tempList.childElementCount) {
+    console.log('aqui');
     currentList.remove();
     currentList = tempList;
     currentList.id = 'current_list';
@@ -609,6 +610,14 @@ function playDisplayedList()
     updateValues();
     makeAndAppendNewSliderContent();
     run();
+    
+    if (song.paused) 
+    {
+      isPlay = true;
+      song.play();
+      playIcon.style.display = "none";
+      pauseIcon.style.display = "block";
+    }
   }
 }
 
@@ -637,7 +646,7 @@ function appendTempList() {
    * (Caso a aleatoriedade, que e uma futura feature
    * nao esteja ativada).
    * [ ] Em cada item da nova lista, deve ser adicionado
-   * um botao, para adicionar musica a vila, entao, um novo
+   * um botao, para adicionar musica a fila, entao, um novo
    * recurso de listener deve ser adicionado somente nessa
    * nova lista.
    */
@@ -658,15 +667,15 @@ function requestData(keyString)
   const URL_TO_FETCH = `searchsong?songToSearch=${keyString}`;
 
   fetch(URL_TO_FETCH)
-          .then(response => response.json())
-          .then(result => {
-            console.log(result);
-            obj = result;
-            refreshPlayList();
-          })
-          .catch(err => {
-            console.error('Failed retrieving information: ', err);
-          });
+    .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        obj = result;
+        refreshPlayList();
+      })
+      .catch(err => {
+      console.error('Failed retrieving information: ', err);
+  });
 }
 
 function validadeString(songName)
@@ -685,11 +694,7 @@ sForm.addEventListener('submit', () => {
   const formData = new FormData(sForm);
   let keyString = formData.get('songName');
   keyString = validadeString(keyString);
-
-  if (lastSearchKeySubmited !== keyString) {
-    lastSearchKeySubmited = keyString;
-    requestData(keyString);
-  }
+  requestData(keyString);
 });
 
 
